@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earlier Work — Li Donglin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F5F4F0;
+            color: #1A1A1A;
+            font-weight: 400;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: #F5F4F0;
+            padding: 24px 0;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-name {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #1A1A1A;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6B6B6B;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1A1A1A;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        #header {
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 36px;
+            font-weight: 300;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+
+        .header-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #6B6B6B;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Projects Grid */
+        #projects {
+            padding: 0 0 80px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .project-item {
+            text-align: left;
+        }
+
+        .project-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .project-image-wrap {
+            width: 100%;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+
+        .project-image-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: #E0DED8;
+        }
+
+        .project-image-wrap + .project-image-wrap {
+            margin-top: 8px;
+        }
+
+        .project-meta {
+            font-size: 12px;
+            font-weight: 400;
+            color: #6B6B6B;
+            margin-bottom: 4px;
+        }
+
+        .project-meta .accent {
+            color: #4A5C45;
+            font-weight: 500;
+        }
+
+        .project-name-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+
+        .project-name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1A1A1A;
+        }
+
+        .project-tag {
+            font-size: 11px;
+            font-weight: 400;
+            color: #6B6B6B;
+            border: 1px solid #6B6B6B;
+            padding: 2px 6px;
+            line-height: 1.4;
+        }
+
+        .project-desc {
+            font-size: 13px;
+            font-weight: 400;
+            color: #6B6B6B;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 400;
+            color: #6B6B6B;
+            padding: 40px 0;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 40px;
+            cursor: pointer;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1100px;
+            width: 100%;
+            max-height: 90vh;
+            cursor: default;
+        }
+
+        .lightbox-image {
+            flex: 0 0 60%;
+            max-width: 60%;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .lightbox-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .lightbox-image img + img {
+            margin-top: 8px;
+        }
+
+        .lightbox-info {
+            flex: 1;
+            color: #F5F4F0;
+            padding-top: 4px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            font-size: 28px;
+            color: #F5F4F0;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            line-height: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            opacity: 0.7;
+        }
+
+        .lightbox-meta {
+            font-size: 12px;
+            font-weight: 400;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .lightbox-meta .accent {
+            color: #4A5C45;
+            font-weight: 500;
+        }
+
+        .lightbox-name {
+            font-size: 22px;
+            font-weight: 500;
+            color: #F5F4F0;
+            margin-bottom: 12px;
+        }
+
+        .lightbox-desc {
+            font-size: 14px;
+            font-weight: 400;
+            color: #ccc;
+            line-height: 1.7;
+        }
+
+        /* Fade-in on scroll (Intersection Observer) */
+        .fade-section:not(.in-viewport) {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-section.in-viewport {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-name">Li Donglin</a>
+            <div class="nav-links">
+                <a href="index.html">← Back to main site</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section id="header">
+        <div class="container">
+            <h1 class="header-title">Earlier Work</h1>
+            <p class="header-subtitle">Selected projects from undergraduate study. Landscape architecture, NEFU & ZJU, 2022–2024.</p>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="fade-section">
+        <div class="container">
+            <div class="projects-grid">
+
+                <!-- Project 1 - full width -->
+                <div class="project-item full-width" data-project="0">
+                    <div class="project-image-wrap">
+                        <img src="images/1-1.jpg" alt="Forest Awakening" loading="lazy">
+                    </div>
+                    <p class="project-meta"><span class="accent">01</span> · 2024</p>
+                    <p class="project-name">Forest Awakening</p>
+                    <p class="project-desc">Health-oriented forest resort design, Heilongjiang</p>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-item" data-project="1">
+                    <div class="project-image-wrap">
+                        <img src="images/2-bv.jpg" alt="Qunli Westside Central Park" loading="lazy">
+                    </div>
+                    <div class="project-image-wrap">
+                        <img src="images/2-ren1.jpg" alt="Qunli Westside Central Park" loading="lazy">
+                    </div>
+                    <p class="project-meta"><span class="accent">02</span> · 2025</p>
+                    <p class="project-name">Qunli Westside Central Park</p>
+                    <p class="project-desc">Brownfield remediation and park design, Harbin</p>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-item" data-project="2">
+                    <div class="project-image-wrap">
+                        <img src="images/3-E5.jpg" alt="Campus Green System" loading="lazy">
+                    </div>
+                    <p class="project-meta"><span class="accent">03</span> · 2023</p>
+                    <p class="project-name">Campus Green System</p>
+                    <p class="project-desc">A five-dimension planning framework for organic campus landscape growth, NEFU</p>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-item" data-project="3">
+                    <div class="project-image-wrap">
+                        <img src="images/4-bv.jpg" alt="Campus Open Space" loading="lazy">
+                    </div>
+                    <p class="project-meta"><span class="accent">04</span> · 2023</p>
+                    <p class="project-name">Campus Open Space</p>
+                    <p class="project-desc">Recreational landscape for university campus</p>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-item" data-project="4">
+                    <div class="project-image-wrap">
+                        <img src="images/5-ren1.jpg" alt="Tangshan Historic Town Renewal" loading="lazy">
+                    </div>
+                    <div class="project-image-wrap">
+                        <img src="images/5-ren2.jpg" alt="Tangshan Historic Town Renewal" loading="lazy">
+                    </div>
+                    <p class="project-meta"><span class="accent">05</span> · 2024</p>
+                    <div class="project-name-row">
+                        <span class="project-name">Tangshan Historic Town Renewal</span>
+                        <span class="project-tag">Group Project</span>
+                    </div>
+                    <p class="project-desc">Urban regeneration design for a historic town in Nanjing</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <p class="footer">© 2025 Li Donglin</p>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">×</button>
+        <div class="lightbox-content" id="lightboxContent">
+            <div class="lightbox-image" id="lightboxImage"></div>
+            <div class="lightbox-info" id="lightboxInfo"></div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Intersection Observer for fade-in sections (triggers every time)
+            const sections = document.querySelectorAll('.fade-section');
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-viewport');
+                        } else {
+                            entry.target.classList.remove('in-viewport');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                sections.forEach(section => observer.observe(section));
+            } else {
+                sections.forEach(section => section.classList.add('in-viewport'));
+            }
+
+            // Lightbox
+            const projectData = [
+                {
+                    images: ['images/1-1.jpg'],
+                    meta: '<span class="accent">01</span> · 2024',
+                    name: 'Forest Awakening',
+                    desc: 'Health-oriented forest resort design, Heilongjiang'
+                },
+                {
+                    images: ['images/2-bv.jpg', 'images/2-ren1.jpg'],
+                    meta: '<span class="accent">02</span> · 2025',
+                    name: 'Qunli Westside Central Park',
+                    desc: 'Brownfield remediation and park design, Harbin'
+                },
+                {
+                    images: ['images/3-E5.jpg'],
+                    meta: '<span class="accent">03</span> · 2023',
+                    name: 'Campus Green System',
+                    desc: 'A five-dimension planning framework for organic campus landscape growth, NEFU'
+                },
+                {
+                    images: ['images/4-bv.jpg'],
+                    meta: '<span class="accent">04</span> · 2023',
+                    name: 'Campus Open Space',
+                    desc: 'Recreational landscape for university campus'
+                },
+                {
+                    images: ['images/5-ren1.jpg', 'images/5-ren2.jpg'],
+                    meta: '<span class="accent">05</span> · 2024',
+                    name: 'Tangshan Historic Town Renewal',
+                    desc: 'Urban regeneration design for a historic town in Nanjing'
+                }
+            ];
+
+            const overlay = document.getElementById('lightbox');
+            const closeBtn = document.getElementById('lightboxClose');
+            const imageContainer = document.getElementById('lightboxImage');
+            const infoContainer = document.getElementById('lightboxInfo');
+
+            function openLightbox(index) {
+                const project = projectData[index];
+                if (!project) return;
+
+                // Build images HTML
+                let imagesHtml = '';
+                project.images.forEach(src => {
+                    imagesHtml += '<img src="' + src + '" alt="' + project.name + '">';
+                });
+                imageContainer.innerHTML = imagesHtml;
+
+                // Build info HTML
+                infoContainer.innerHTML =
+                    '<p class="lightbox-meta">' + project.meta + '</p>' +
+                    '<p class="lightbox-name">' + project.name + '</p>' +
+                    '<p class="lightbox-desc">' + project.desc + '</p>';
+
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // Click on project images
+            document.querySelectorAll('.project-item').forEach(item => {
+                const index = parseInt(item.getAttribute('data-project'), 10);
+                item.querySelectorAll('.project-image-wrap').forEach(wrap => {
+                    wrap.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openLightbox(index);
+                    });
+                });
+            });
+
+            // Close on × button
+            closeBtn.addEventListener('click', closeLightbox);
+
+            // Close on overlay background click
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closeLightbox();
+                }
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        })();
+    </script>
+
+</body>
+</html>
