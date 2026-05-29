@@ -180,6 +180,14 @@
             line-height: 1.6;
         }
 
+        .project-desc-extended {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6B6B6B;
+            line-height: 1.7;
+            margin-top: 8px;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -213,26 +221,53 @@
             visibility: visible;
         }
 
-        .lightbox-content {
+        .lightbox-inner {
             display: flex;
-            align-items: flex-start;
-            gap: 40px;
+            align-items: center;
+            gap: 16px;
             max-width: 1100px;
             width: 100%;
             max-height: 90vh;
             cursor: default;
         }
 
+        .lightbox-arrow {
+            font-size: 32px;
+            color: #fff;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            flex-shrink: 0;
+            padding: 8px;
+            transition: opacity 0.2s ease;
+            line-height: 1;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .lightbox-arrow:hover {
+            opacity: 0.6;
+        }
+
+        .lightbox-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            flex: 1;
+            min-width: 0;
+        }
+
         .lightbox-image {
             flex: 0 0 60%;
             max-width: 60%;
-            max-height: 85vh;
-            overflow-y: auto;
+            max-height: 80vh;
+            overflow: hidden;
+            background: #111;
         }
 
         .lightbox-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: contain;
             display: block;
         }
 
@@ -244,6 +279,7 @@
             flex: 1;
             color: #F5F4F0;
             padding-top: 4px;
+            min-width: 0;
         }
 
         .lightbox-close {
@@ -337,6 +373,7 @@
                     <p class="project-meta"><span class="accent">01</span> · 2024</p>
                     <p class="project-name">Forest Awakening</p>
                     <p class="project-desc">Health-oriented forest resort design, Heilongjiang</p>
+                    <p class="project-desc-extended">Designed a forest wellness resort in Heilongjiang based on the Awakening Theory. The site integrates bathing forest, sensory trails, and ecological lodging. Strategy focused on three behavioral modes: forest immersion, social awakening, and restorative retreat.</p>
                 </div>
 
                 <!-- Project 2 -->
@@ -350,6 +387,7 @@
                     <p class="project-meta"><span class="accent">02</span> · 2025</p>
                     <p class="project-name">Qunli Westside Central Park</p>
                     <p class="project-desc">Brownfield remediation and park design, Harbin</p>
+                    <p class="project-desc-extended">Brownfield remediation and central park design for a post-industrial site in Harbin. Proposed landscape strategies to restore ecological function while creating active recreational infrastructure for surrounding residential communities.</p>
                 </div>
 
                 <!-- Project 3 -->
@@ -360,6 +398,7 @@
                     <p class="project-meta"><span class="accent">03</span> · 2023</p>
                     <p class="project-name">Campus Green System</p>
                     <p class="project-desc">A five-dimension planning framework for organic campus landscape growth, NEFU</p>
+                    <p class="project-desc-extended">A systemic planning proposal for NEFU's campus green network, structured around five dimensions: Easy, Effective, Ecology, Energy, and Emotional. Developed a phased implementation roadmap addressing six core spatial problems across three growth stages.</p>
                 </div>
 
                 <!-- Project 4 -->
@@ -370,6 +409,7 @@
                     <p class="project-meta"><span class="accent">04</span> · 2023</p>
                     <p class="project-name">Campus Open Space</p>
                     <p class="project-desc">Recreational landscape for university campus</p>
+                    <p class="project-desc-extended">Open recreational landscape design for a university campus, focusing on flexible multi-use spaces that support daily student activity, ecological corridors, and seasonal programming.</p>
                 </div>
 
                 <!-- Project 5 -->
@@ -386,6 +426,7 @@
                         <span class="project-tag">Group Project</span>
                     </div>
                     <p class="project-desc">Urban regeneration design for a historic town in Nanjing</p>
+                    <p class="project-desc-extended">Group project. Urban regeneration proposal for Tangshan historic town, Nanjing. Balanced heritage preservation with contemporary public space activation, proposing a network of cultural nodes and pedestrian-oriented streetscapes.</p>
                 </div>
 
             </div>
@@ -398,9 +439,13 @@
     <!-- Lightbox -->
     <div class="lightbox-overlay" id="lightbox">
         <button class="lightbox-close" id="lightboxClose">×</button>
-        <div class="lightbox-content" id="lightboxContent">
-            <div class="lightbox-image" id="lightboxImage"></div>
-            <div class="lightbox-info" id="lightboxInfo"></div>
+        <div class="lightbox-inner">
+            <button class="lightbox-arrow" id="lightboxPrev">‹</button>
+            <div class="lightbox-content">
+                <div class="lightbox-image" id="lightboxImage"></div>
+                <div class="lightbox-info" id="lightboxInfo"></div>
+            </div>
+            <button class="lightbox-arrow" id="lightboxNext">›</button>
         </div>
     </div>
 
@@ -425,62 +470,49 @@
                 sections.forEach(section => section.classList.add('in-viewport'));
             }
 
-            // Lightbox
-            const projectData = [
-                {
-                    images: ['images/1-1.jpg'],
-                    meta: '<span class="accent">01</span> · 2024',
-                    name: 'Forest Awakening',
-                    desc: 'Health-oriented forest resort design, Heilongjiang'
-                },
-                {
-                    images: ['images/2-bv.jpg', 'images/2-ren1.jpg'],
-                    meta: '<span class="accent">02</span> · 2025',
-                    name: 'Qunli Westside Central Park',
-                    desc: 'Brownfield remediation and park design, Harbin'
-                },
-                {
-                    images: ['images/3-E5.jpg'],
-                    meta: '<span class="accent">03</span> · 2023',
-                    name: 'Campus Green System',
-                    desc: 'A five-dimension planning framework for organic campus landscape growth, NEFU'
-                },
-                {
-                    images: ['images/4-bv.jpg'],
-                    meta: '<span class="accent">04</span> · 2023',
-                    name: 'Campus Open Space',
-                    desc: 'Recreational landscape for university campus'
-                },
-                {
-                    images: ['images/5-ren1.jpg', 'images/5-ren2.jpg'],
-                    meta: '<span class="accent">05</span> · 2024',
-                    name: 'Tangshan Historic Town Renewal',
-                    desc: 'Urban regeneration design for a historic town in Nanjing'
-                }
+            // Lightbox — each project is its own gallery
+            const projectGalleries = [
+                { images: ['images/1-1.jpg'], meta: '<span class="accent">01</span> · 2024', name: 'Forest Awakening', desc: 'Health-oriented forest resort design, Heilongjiang' },
+                { images: ['images/2-bv.jpg', 'images/2-ren1.jpg'], meta: '<span class="accent">02</span> · 2025', name: 'Qunli Westside Central Park', desc: 'Brownfield remediation and park design, Harbin' },
+                { images: ['images/3-E5.jpg'], meta: '<span class="accent">03</span> · 2023', name: 'Campus Green System', desc: 'A five-dimension planning framework for organic campus landscape growth, NEFU' },
+                { images: ['images/4-bv.jpg'], meta: '<span class="accent">04</span> · 2023', name: 'Campus Open Space', desc: 'Recreational landscape for university campus' },
+                { images: ['images/5-ren1.jpg', 'images/5-ren2.jpg'], meta: '<span class="accent">05</span> · 2024', name: 'Tangshan Historic Town Renewal', desc: 'Urban regeneration design for a historic town in Nanjing' }
             ];
 
             const overlay = document.getElementById('lightbox');
             const closeBtn = document.getElementById('lightboxClose');
+            const prevBtn = document.getElementById('lightboxPrev');
+            const nextBtn = document.getElementById('lightboxNext');
             const imageContainer = document.getElementById('lightboxImage');
             const infoContainer = document.getElementById('lightboxInfo');
+            let activeProject = null;   // current gallery object
+            let currentIndex = 0;       // index within that gallery's images array
 
-            function openLightbox(index) {
-                const project = projectData[index];
-                if (!project) return;
+            function renderLightbox() {
+                if (!activeProject) return;
 
-                // Build images HTML
-                let imagesHtml = '';
-                project.images.forEach(src => {
-                    imagesHtml += '<img src="' + src + '" alt="' + project.name + '">';
-                });
-                imageContainer.innerHTML = imagesHtml;
+                const images = activeProject.images;
 
-                // Build info HTML
+                // Show/hide arrows based on image count
+                prevBtn.style.display = images.length > 1 ? '' : 'none';
+                nextBtn.style.display = images.length > 1 ? '' : 'none';
+
+                // Build images HTML — show only the current one
+                imageContainer.innerHTML = '<img src="' + images[currentIndex] + '" alt="' + activeProject.name + '">';
+
+                // Build info HTML (fixed per project, doesn't change with image)
                 infoContainer.innerHTML =
-                    '<p class="lightbox-meta">' + project.meta + '</p>' +
-                    '<p class="lightbox-name">' + project.name + '</p>' +
-                    '<p class="lightbox-desc">' + project.desc + '</p>';
+                    '<p class="lightbox-meta">' + activeProject.meta + '</p>' +
+                    '<p class="lightbox-name">' + activeProject.name + '</p>' +
+                    '<p class="lightbox-desc">' + activeProject.desc + '</p>';
+            }
 
+            function openLightbox(projectIndex) {
+                const gallery = projectGalleries[projectIndex];
+                if (!gallery) return;
+                activeProject = gallery;
+                currentIndex = 0;
+                renderLightbox();
                 overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
@@ -488,6 +520,19 @@
             function closeLightbox() {
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
+                activeProject = null;
+            }
+
+            function goPrev() {
+                if (!activeProject || activeProject.images.length <= 1) return;
+                currentIndex = (currentIndex - 1 + activeProject.images.length) % activeProject.images.length;
+                renderLightbox();
+            }
+
+            function goNext() {
+                if (!activeProject || activeProject.images.length <= 1) return;
+                currentIndex = (currentIndex + 1) % activeProject.images.length;
+                renderLightbox();
             }
 
             // Click on project images
@@ -511,10 +556,26 @@
                 }
             });
 
-            // Close on Escape key
+            // Arrow buttons
+            prevBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                goPrev();
+            });
+
+            nextBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                goNext();
+            });
+
+            // Keyboard navigation
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                if (!overlay.classList.contains('active')) return;
+                if (e.key === 'Escape') {
                     closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    goPrev();
+                } else if (e.key === 'ArrowRight') {
+                    goNext();
                 }
             });
         })();
