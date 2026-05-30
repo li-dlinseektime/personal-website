@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Li Donglin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F5F4F0;
+            color: #1A1A1A;
+            font-weight: 400;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: #F5F4F0;
+            padding: 24px 0;
+        }
+
+        .nav-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-name {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #1A1A1A;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6B6B6B;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1A1A1A;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        #header {
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 48px;
+            font-weight: 300;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+
+        .header-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #6B6B6B;
+        }
+
+        /* Photos */
+        #photos {
+            padding: 0 0 60px;
+        }
+
+        .photos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .photos-grid img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            background-color: #E0DED8;
+        }
+
+        /* Body text */
+        #body-text {
+            padding: 0 0 60px;
+        }
+
+        .body-content {
+            max-width: 640px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .body-content p {
+            font-size: 15px;
+            font-weight: 400;
+            color: #6B6B6B;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .body-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Side Projects */
+        #side-projects {
+            padding: 0 0 60px;
+        }
+
+        .side-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #4A5C45;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .side-desc {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6B6B6B;
+            margin-bottom: 24px;
+        }
+
+        .side-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .side-grid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #E0DED8;
+            background-color: #E0DED8;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 400;
+            color: #6B6B6B;
+            padding: 0 0 40px;
+        }
+
+        /* Fade-in on scroll (Intersection Observer) */
+        .fade-section:not(.in-viewport) {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-section.in-viewport {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-name">Li Donglin</a>
+            <div class="nav-links">
+                <a href="index.html">← Back</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section id="header">
+        <div class="container">
+            <h1 class="header-title">About</h1>
+            <p class="header-subtitle">Zhejiang University · Landscape Architecture · Class of 2025</p>
+        </div>
+    </section>
+
+    <!-- Photos -->
+    <section id="photos" class="fade-section">
+        <div class="container">
+            <div class="photos-grid">
+                <img src="images/about-1.jpg" alt="About Li Donglin" loading="lazy">
+                <img src="images/about-2.jpg" alt="About Li Donglin" loading="lazy">
+                <img src="images/about-3.jpg" alt="About Li Donglin" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Body Text -->
+    <section id="body-text" class="fade-section">
+        <div class="container">
+            <div class="body-content">
+                <p>
+                    I studied landscape architecture for four years, which trained me to read environments—how people move through space, what makes a place feel right or wrong, why some designs hold attention and others don't. That kind of observational habit doesn't turn off when I close a design software.
+                </p>
+                <p>
+                    Somewhere in my final year, I started noticing how much friction existed between design workflows and AI tools. Prompts getting lost. Research scattered. No tool built with designers in mind. So I built one. That was PromptDeck—my first end-to-end product, shipped in a week.
+                </p>
+                <p>
+                    I'm now actively transitioning into AI product and applied AI roles. I don't have a traditional tech background, but I have a trained eye, a research mindset, and enough stubbornness to ship things. Currently based in Hangzhou, open to remote.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Side Projects -->
+    <section id="side-projects" class="fade-section">
+        <div class="container">
+            <p class="side-label">Side Projects</p>
+            <p class="side-desc">IP character design & branding, created during undergrad.</p>
+            <div class="side-grid">
+                <img src="images/ip-1.jpg" alt="IP character design" loading="lazy">
+                <img src="images/ip-2.jpg" alt="IP character design" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <p class="footer">© 2025 Li Donglin</p>
+
+    <script>
+        (function() {
+            // Intersection Observer for fade-in sections (triggers every time)
+            const sections = document.querySelectorAll('.fade-section');
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-viewport');
+                        } else {
+                            entry.target.classList.remove('in-viewport');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                sections.forEach(section => observer.observe(section));
+            } else {
+                sections.forEach(section => section.classList.add('in-viewport'));
+            }
+        })();
+    </script>
+
+</body>
+</html>

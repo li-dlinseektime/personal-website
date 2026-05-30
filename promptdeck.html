@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptDeck — Li Donglin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F5F4F0;
+            color: #1A1A1A;
+            font-weight: 400;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: #F5F4F0;
+            padding: 24px 0;
+        }
+
+        .nav-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-name {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #1A1A1A;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6B6B6B;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1A1A1A;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        #header {
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+
+        .header-tag {
+            font-size: 12px;
+            font-weight: 500;
+            color: #4A5C45;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .header-title {
+            font-size: 48px;
+            font-weight: 300;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+
+        .header-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #6B6B6B;
+            margin-bottom: 32px;
+        }
+
+        .header-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .header-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1A1A1A;
+            text-decoration: none;
+            border: 1px solid #1A1A1A;
+            padding: 8px 16px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .header-links a:hover {
+            background-color: #1A1A1A;
+            color: #fff;
+        }
+
+        /* Screenshots */
+        #screenshots {
+            padding: 0 0 80px;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .screenshots-grid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #E0DED8;
+        }
+
+        /* Content sections */
+        .content-section {
+            padding: 60px 0;
+            border-top: 1px solid #E0DED8;
+        }
+
+        .content-section:first-of-type {
+            border-top: none;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #4A5C45;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-body {
+            font-size: 15px;
+            font-weight: 400;
+            color: #6B6B6B;
+            line-height: 1.8;
+        }
+
+        /* Features list */
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            display: flex;
+            gap: 8px;
+            padding: 16px 0;
+            border-bottom: 1px solid #E0DED8;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #1A1A1A;
+            white-space: nowrap;
+        }
+
+        .feature-desc {
+            font-size: 15px;
+            font-weight: 400;
+            color: #6B6B6B;
+        }
+
+        /* Footer */
+        .footer-tech {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 400;
+            color: #6B6B6B;
+            padding: 60px 0 8px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 400;
+            color: #6B6B6B;
+            padding: 0 0 40px;
+        }
+
+        /* Fade-in on scroll (Intersection Observer) */
+        .fade-section:not(.in-viewport) {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-section.in-viewport {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-name">Li Donglin</a>
+            <div class="nav-links">
+                <a href="index.html">← Back</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section id="header">
+        <div class="container">
+            <p class="header-tag">AI TOOL · 2025</p>
+            <h1 class="header-title">PromptDeck</h1>
+            <p class="header-subtitle">A prompt manager built for designers</p>
+            <div class="header-links">
+                <a href="https://li-dlinseektime.github.io/promptdeck/">Live Site ↗</a>
+                <a href="https://github.com/li-dlinseektime/promptdeck">GitHub ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section id="screenshots" class="fade-section">
+        <div class="container">
+            <div class="screenshots-grid">
+                <img src="images/pd-1.png" alt="PromptDeck screenshot 1" loading="lazy">
+                <img src="images/pd-2.png" alt="PromptDeck screenshot 2" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">The Problem</p>
+            <p class="section-body">
+                Designers working with AI tools face a recurring frustration: prompts disappear. A network drop wipes a draft. A useful prompt from last week is buried in chat history. Switching between Claude, ChatGPT, and Midjourney means starting from scratch each time. No existing tool was built with design workflows in mind—most are either too heavy (built for dev teams) or too light (just bookmarks).
+            </p>
+        </div>
+    </section>
+
+    <!-- What I Built -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">What I Built</p>
+            <ul class="features-list">
+                <li>
+                    <span class="feature-name">Draft Autosave</span>
+                    <span class="feature-desc">— Text saves locally in real time. Network drops don't cost you work.</span>
+                </li>
+                <li>
+                    <span class="feature-name">Platform Tagging</span>
+                    <span class="feature-desc">— Tag prompts by Claude, ChatGPT, Midjourney, Gemini, or Kimi. Filter by platform in one click.</span>
+                </li>
+                <li>
+                    <span class="feature-name">LA Template Pack</span>
+                    <span class="feature-desc">— 5 built-in prompts for landscape architecture workflows: site analysis, concept generation, planting advice, design critique, and copywriting.</span>
+                </li>
+                <li>
+                    <span class="feature-name">Tag & Search</span>
+                    <span class="feature-desc">— Add custom tags, filter by multiple tags simultaneously, search by title or content.</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- What I Didn't Build -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">Intentional Constraints</p>
+            <p class="section-body">
+                No user accounts. No cloud sync. No AI API calls. No auto-categorization. Every feature cut was a deliberate decision to keep the tool lightweight, private, and instantly usable without setup. The target user doesn't want another SaaS subscription—they want something that works offline, immediately.
+            </p>
+        </div>
+    </section>
+
+    <!-- Reflection -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">What I Learned</p>
+            <p class="section-body">
+                This was my first end-to-end product build. I identified the problem from my own workflow, surveyed what existed, defined the MVP scope, and shipped a working tool in one week using vibe coding (VS Code + Cline + DeepSeek API). The LA template pack is the moat—it's the part no generic tool would think to build, and the part that makes this tool specific enough to be useful.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <p class="footer-tech">Built with HTML · CSS · JS · localStorage · No backend</p>
+    <p class="footer">© 2025 Li Donglin</p>
+
+    <script>
+        (function() {
+            // Intersection Observer for fade-in sections (triggers every time)
+            const sections = document.querySelectorAll('.fade-section');
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-viewport');
+                        } else {
+                            entry.target.classList.remove('in-viewport');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                sections.forEach(section => observer.observe(section));
+            } else {
+                sections.forEach(section => section.classList.add('in-viewport'));
+            }
+        })();
+    </script>
+
+</body>
+</html>
