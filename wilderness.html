@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Wilderness Perception — Li Donglin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F5F4F0;
+            color: #1A1A1A;
+            font-weight: 400;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: #F5F4F0;
+            padding: 24px 0;
+        }
+
+        .nav-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-name {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #1A1A1A;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6B6B6B;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1A1A1A;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        #header {
+            padding: 140px 0 60px;
+            text-align: center;
+        }
+
+        .header-tag {
+            font-size: 12px;
+            font-weight: 500;
+            color: #4A5C45;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .header-title {
+            font-size: 48px;
+            font-weight: 300;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+
+        .header-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #6B6B6B;
+        }
+
+        /* Content sections */
+        .content-section {
+            padding: 60px 0;
+            border-top: 1px solid #E0DED8;
+        }
+
+        .content-section:first-of-type {
+            border-top: none;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #4A5C45;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-body {
+            font-size: 15px;
+            font-weight: 400;
+            color: #6B6B6B;
+            line-height: 1.8;
+        }
+
+        /* Data Cards */
+        .data-cards {
+            display: flex;
+            gap: 0;
+            justify-content: center;
+        }
+
+        .data-card {
+            flex: 1;
+            text-align: center;
+            padding: 0 16px;
+            border-right: 1px solid #E0DED8;
+        }
+
+        .data-card:last-child {
+            border-right: none;
+        }
+
+        .data-card-number {
+            font-size: 48px;
+            font-weight: 300;
+            color: #4A5C45;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .data-card-label {
+            font-size: 12px;
+            font-weight: 400;
+            color: #6B6B6B;
+            line-height: 1.4;
+        }
+
+        /* Pipeline */
+        .pipeline {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .pipeline-node {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            width: 100%;
+            max-width: 560px;
+        }
+
+        .pipeline-node + .pipeline-node {
+            margin-top: 0;
+        }
+
+        .pipeline-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #4A5C45;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pipeline-line {
+            width: 2px;
+            background-color: #E0DED8;
+            margin: 0 auto;
+            height: 32px;
+            flex-shrink: 0;
+            margin-left: 17px;
+        }
+
+        .pipeline-content {
+            padding-top: 6px;
+            padding-bottom: 24px;
+        }
+
+        .pipeline-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .pipeline-desc {
+            font-size: 13px;
+            font-weight: 400;
+            color: #6B6B6B;
+            line-height: 1.6;
+        }
+
+        /* Framework boxes */
+        .framework-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .framework-box {
+            border: 1px solid #E0DED8;
+            padding: 24px;
+            text-align: left;
+        }
+
+        .framework-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1A1A1A;
+            margin-bottom: 2px;
+        }
+
+        .framework-subtitle {
+            font-size: 12px;
+            font-weight: 400;
+            color: #6B6B6B;
+            margin-bottom: 16px;
+        }
+
+        .framework-list {
+            list-style: none;
+        }
+
+        .framework-list li {
+            font-size: 13px;
+            font-weight: 400;
+            color: #6B6B6B;
+            padding: 4px 0;
+            border-bottom: 1px solid #E0DED8;
+        }
+
+        .framework-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Bar chart */
+        .bar-chart {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .bar-label {
+            font-size: 13px;
+            font-weight: 400;
+            color: #1A1A1A;
+            width: 100px;
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 20px;
+            background-color: #E0DED8;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background-color: #4A5C45;
+            transition: width 0.6s ease;
+        }
+
+        .bar-value {
+            font-size: 13px;
+            font-weight: 400;
+            color: #6B6B6B;
+            width: 48px;
+            flex-shrink: 0;
+        }
+
+        /* Cross-cultural comparison */
+        .comparison-legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6B6B6B;
+        }
+
+        .legend-swatch {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .comparison-grid {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .comparison-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .comparison-label {
+            font-size: 13px;
+            font-weight: 400;
+            color: #1A1A1A;
+            width: 90px;
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .comparison-bars {
+            flex: 1;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .comparison-bar {
+            height: 20px;
+            transition: width 0.6s ease;
+        }
+
+        .comparison-bar.cn {
+            background-color: #4A5C45;
+        }
+
+        .comparison-bar.en {
+            background-color: #8BA888;
+        }
+
+        .comparison-values {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6B6B6B;
+            width: 60px;
+            flex-shrink: 0;
+        }
+
+        /* Key Findings */
+        .finding {
+            margin-bottom: 40px;
+        }
+
+        .finding:last-child {
+            margin-bottom: 0;
+        }
+
+        .finding-number {
+            font-size: 64px;
+            font-weight: 300;
+            color: #4A5C45;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .finding-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+        }
+
+        .finding-desc {
+            font-size: 15px;
+            font-weight: 400;
+            color: #6B6B6B;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        .footer-tech {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 400;
+            color: #6B6B6B;
+            padding: 60px 0 8px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 400;
+            color: #6B6B6B;
+            padding: 0 0 40px;
+        }
+
+        /* Fade-in on scroll (Intersection Observer) */
+        .fade-section:not(.in-viewport) {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-section.in-viewport {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-name">Li Donglin</a>
+            <div class="nav-links">
+                <a href="index.html">← Back</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section id="header">
+        <div class="container">
+            <p class="header-tag">RESEARCH · 2024</p>
+            <h1 class="header-title">Urban Wilderness Perception</h1>
+            <p class="header-subtitle">How do Chinese and English-speaking publics perceive urban wilderness differently?</p>
+        </div>
+    </section>
+
+    <!-- Why This Project -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">Why This Project</p>
+            <p class="section-body">
+                Many urban wilderness spaces are discussed online every day, yet planners still rely heavily on surveys and expert interpretation. I wanted to explore whether large-scale public conversations could reveal hidden perception patterns that traditional methods often miss.
+            </p>
+        </div>
+    </section>
+
+    <!-- Data Cards -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">Dataset</p>
+            <div class="data-cards">
+                <div class="data-card">
+                    <p class="data-card-number">67,000+</p>
+                    <p class="data-card-label">Reviews collected</p>
+                </div>
+                <div class="data-card">
+                    <p class="data-card-number">2</p>
+                    <p class="data-card-label">Platforms (Dianping + TripAdvisor)</p>
+                </div>
+                <div class="data-card">
+                    <p class="data-card-number">138</p>
+                    <p class="data-card-label">Semantic topics extracted</p>
+                </div>
+                <div class="data-card">
+                    <p class="data-card-number">30</p>
+                    <p class="data-card-label">Urban wilderness sites</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Pipeline -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">How It Works</p>
+            <div class="pipeline">
+                <div class="pipeline-node">
+                    <div class="pipeline-circle">1</div>
+                    <div class="pipeline-content">
+                        <p class="pipeline-name">Data Collection</p>
+                        <p class="pipeline-desc">67,000+ UGC reviews scraped from Dianping and TripAdvisor</p>
+                    </div>
+                </div>
+                <div class="pipeline-line"></div>
+                <div class="pipeline-node">
+                    <div class="pipeline-circle">2</div>
+                    <div class="pipeline-content">
+                        <p class="pipeline-name">Preprocessing</p>
+                        <p class="pipeline-desc">Removed duplicates, ads, empty entries; balanced dataset via undersampling</p>
+                    </div>
+                </div>
+                <div class="pipeline-line"></div>
+                <div class="pipeline-node">
+                    <div class="pipeline-circle">3</div>
+                    <div class="pipeline-content">
+                        <p class="pipeline-name">Topic Modeling</p>
+                        <p class="pipeline-desc">BERTopic with multilingual embeddings (all-MiniLM-L12-v2 / text2vec-base-multilingual)</p>
+                    </div>
+                </div>
+                <div class="pipeline-line"></div>
+                <div class="pipeline-node">
+                    <div class="pipeline-circle">4</div>
+                    <div class="pipeline-content">
+                        <p class="pipeline-name">138 Topics</p>
+                        <p class="pipeline-desc">Semantic clustering via UMAP dimensionality reduction + HDBSCAN</p>
+                    </div>
+                </div>
+                <div class="pipeline-line"></div>
+                <div class="pipeline-node">
+                    <div class="pipeline-circle">5</div>
+                    <div class="pipeline-content">
+                        <p class="pipeline-name">Label Framework</p>
+                        <p class="pipeline-desc">Manual coding with PMT / WA / PD / TC four-dimension system</p>
+                    </div>
+                </div>
+                <div class="pipeline-line"></div>
+                <div class="pipeline-node">
+                    <div class="pipeline-circle">6</div>
+                    <div class="pipeline-content">
+                        <p class="pipeline-name">Statistical Analysis</p>
+                        <p class="pipeline-desc">Chi-square tests, t-tests, multinomial logistic regression (75% accuracy)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Label Framework -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">Perception Framework</p>
+            <p class="section-body" style="margin-bottom: 24px;">
+                Rather than using existing frameworks directly, I built a custom four-dimension labeling system adapted to urban wilderness context.
+            </p>
+            <div class="framework-grid">
+                <div class="framework-box">
+                    <p class="framework-title">PMT</p>
+                    <p class="framework-subtitle">Place Meaning Typology</p>
+                    <ul class="framework-list">
+                        <li>Recreational</li>
+                        <li>Functional</li>
+                        <li>Aesthetic</li>
+                        <li>Symbolic</li>
+                        <li>Social</li>
+                        <li>Spiritual</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <p class="framework-title">WA</p>
+                    <p class="framework-subtitle">Wilderness Attributes</p>
+                    <ul class="framework-list">
+                        <li>Naturalness</li>
+                        <li>Openness</li>
+                        <li>Biodiversity</li>
+                        <li>Wildness</li>
+                        <li>Remoteness</li>
+                        <li>Ruggedness</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <p class="framework-title">PD</p>
+                    <p class="framework-subtitle">Perception Dimensions</p>
+                    <ul class="framework-list">
+                        <li>Affective</li>
+                        <li>Cognitive</li>
+                        <li>Aesthetic</li>
+                        <li>Practical</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PMT Distribution -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">What People Talk About</p>
+            <div class="bar-chart">
+                <div class="bar-row">
+                    <span class="bar-label">Recreational</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 34.8%"></div></div>
+                    <span class="bar-value">34.8%</span>
+                </div>
+                <div class="bar-row">
+                    <span class="bar-label">Functional</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 22.4%"></div></div>
+                    <span class="bar-value">22.4%</span>
+                </div>
+                <div class="bar-row">
+                    <span class="bar-label">Aesthetic</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 21.0%"></div></div>
+                    <span class="bar-value">21.0%</span>
+                </div>
+                <div class="bar-row">
+                    <span class="bar-label">Symbolic</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 14.5%"></div></div>
+                    <span class="bar-value">14.5%</span>
+                </div>
+                <div class="bar-row">
+                    <span class="bar-label">Social</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 4.3%"></div></div>
+                    <span class="bar-value">4.3%</span>
+                </div>
+                <div class="bar-row">
+                    <span class="bar-label">Spiritual</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 2.9%"></div></div>
+                    <span class="bar-value">2.9%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-Cultural Comparison -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">Chinese vs. International Users</p>
+            <p class="section-body" style="margin-bottom: 24px;">
+                Chi-square test confirmed significant difference in topic type distribution (χ²=8.54, p=0.014).
+            </p>
+            <div class="comparison-legend">
+                <div class="legend-item">
+                    <div class="legend-swatch" style="background-color: #4A5C45;"></div>
+                    Chinese
+                </div>
+                <div class="legend-item">
+                    <div class="legend-swatch" style="background-color: #8BA888;"></div>
+                    International
+                </div>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-row">
+                    <span class="comparison-label">Recreational</span>
+                    <div class="comparison-bars">
+                        <div class="comparison-bar cn" style="width: 21%"></div>
+                        <div class="comparison-bar en" style="width: 27%"></div>
+                    </div>
+                    <div class="comparison-values">
+                        <span>21</span>
+                        <span>27</span>
+                    </div>
+                </div>
+                <div class="comparison-row">
+                    <span class="comparison-label">Aesthetic</span>
+                    <div class="comparison-bars">
+                        <div class="comparison-bar cn" style="width: 19%"></div>
+                        <div class="comparison-bar en" style="width: 10%"></div>
+                    </div>
+                    <div class="comparison-values">
+                        <span>19</span>
+                        <span>10</span>
+                    </div>
+                </div>
+                <div class="comparison-row">
+                    <span class="comparison-label">Symbolic</span>
+                    <div class="comparison-bars">
+                        <div class="comparison-bar cn" style="width: 20%"></div>
+                        <div class="comparison-bar en" style="width: 0%"></div>
+                    </div>
+                    <div class="comparison-values">
+                        <span>20</span>
+                        <span>0</span>
+                    </div>
+                </div>
+                <div class="comparison-row">
+                    <span class="comparison-label">Social</span>
+                    <div class="comparison-bars">
+                        <div class="comparison-bar cn" style="width: 1%"></div>
+                        <div class="comparison-bar en" style="width: 5%"></div>
+                    </div>
+                    <div class="comparison-values">
+                        <span>1</span>
+                        <span>5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Findings -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">Key Findings</p>
+
+            <div class="finding">
+                <p class="finding-number">01</p>
+                <p class="finding-title">Recreational over ecological</p>
+                <p class="finding-desc">
+                    Public perception of urban wilderness centers on recreational and functional use, not ecological value. Semi-wilderness topics dominated at 60.9%; pure wilderness topics were rare at 3.6%.
+                </p>
+            </div>
+
+            <div class="finding">
+                <p class="finding-number">02</p>
+                <p class="finding-title">Culture shapes meaning</p>
+                <p class="finding-desc">
+                    Chinese users showed higher Symbolic and Spiritual meaning construction. International users leaned toward Recreational and Functional. Topic type distribution difference was statistically significant (p=0.014).
+                </p>
+            </div>
+
+            <div class="finding">
+                <p class="finding-number">03</p>
+                <p class="finding-title">Perception predicts meaning</p>
+                <p class="finding-desc">
+                    A multinomial logistic regression model using four perception dimensions achieved 75% accuracy in predicting place meaning type—confirming that how people feel about a space shapes what it means to them.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reflection -->
+    <section class="content-section fade-section">
+        <div class="container">
+            <p class="section-label">Reflection</p>
+            <p class="section-body">
+                This project changed how I think about design research. Rather than relying on surveys or expert judgment, AI-assisted workflows let me find perception patterns hidden inside thousands of everyday conversations. It was my first experience building a system that transforms unstructured human language into structured design knowledge—and it directly led to asking: what other design workflows could benefit from this kind of structure? That question became PromptDeck.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <p class="footer-tech">Unpublished research draft · Methods: BERTopic, Chi-square, Logistic Regression · 2024</p>
+    <p class="footer">© 2025 Li Donglin</p>
+
+    <script>
+        (function() {
+            // Intersection Observer for fade-in sections (triggers every time)
+            const sections = document.querySelectorAll('.fade-section');
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-viewport');
+                        } else {
+                            entry.target.classList.remove('in-viewport');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                sections.forEach(section => observer.observe(section));
+            } else {
+                sections.forEach(section => section.classList.add('in-viewport'));
+            }
+        })();
+    </script>
+
+</body>
+</html>

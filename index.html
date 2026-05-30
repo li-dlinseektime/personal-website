@@ -203,8 +203,8 @@
             opacity: 0.7;
         }
 
-        /* About */
-        #about {
+        /* Background */
+        #background {
             padding: 60px 0;
         }
 
@@ -224,8 +224,12 @@
             margin-bottom: 24px;
         }
 
+        .about-links {
+            display: flex;
+            gap: 24px;
+        }
+
         .about-link {
-            display: inline-block;
             font-size: 13px;
             font-weight: 500;
             color: #4A5C45;
@@ -298,7 +302,7 @@
             <span class="nav-name">Li Donglin</span>
             <div class="nav-links">
                 <a href="#work">Work</a>
-                <a href="#about">About</a>
+                <a href="#background">About</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
@@ -332,23 +336,24 @@
                 </div>
             </div>
 
-            <div class="project">
+            <div class="project" data-href="wilderness.html">
                 <p class="project-tag">Research · 2024</p>
                 <h3 class="project-title">Urban Wilderness Perception</h3>
+                <p class="project-case-link">View case study →</p>
                 <p class="project-desc">
                     How do Chinese and English-speaking publics perceive urban wilderness differently? Collected 67,000+ UGC reviews from Dianping and TripAdvisor. Applied BERTopic modeling, built a custom labeling system, ran statistical analysis across 138 topics. Unpublished research draft—demonstrates end-to-end text analysis pipeline without prior coding background.
                 </p>
                 <div class="project-links">
-                    <a href="#">Research Notes ↗</a>
+                    <a href="wilderness.html">Research Notes ↗</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="fade-section">
+    <!-- Background -->
+    <section id="background" class="fade-section">
         <div class="container">
-            <h2 class="section-title">About</h2>
+            <h2 class="section-title">Background</h2>
             <div class="about-text">
                 <p>
                     I studied landscape architecture and spent years learning to read space, ecology, and how people move through environments.
@@ -359,7 +364,10 @@
                 <p>
                     Currently transitioning into AI product and applied AI roles.
                 </p>
-                <a href="archive.html" class="about-link">Earlier LA work →</a>
+                <div class="about-links">
+                    <a href="about.html" class="about-link">About me →</a>
+                    <a href="archive.html" class="about-link">Earlier LA work →</a>
+                </div>
             </div>
         </div>
     </section>
